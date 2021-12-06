@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateCarbonLevelsTable extends Migration
+class CreateDeviceDataTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,9 +13,11 @@ class CreateCarbonLevelsTable extends Migration
      */
     public function up()
     {
-        Schema::create('carbon_levels', function (Blueprint $table) {
+        Schema::create('device_data', function (Blueprint $table) {
             $table->id();
-            $table->float('carbon')->nullable();
+            $table->integer('acceleration');
+            $table->float('carbon');
+            $table->integer('inclination');
             $table->timestamps();
         });
     }
@@ -27,6 +29,6 @@ class CreateCarbonLevelsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('carbon_levels');
+        Schema::dropIfExists('device_data');
     }
 }

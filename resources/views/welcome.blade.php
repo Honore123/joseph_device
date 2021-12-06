@@ -27,8 +27,143 @@
                 <h4>Device Statistics</h4>
             </div>
         </div>
-    <script src="{{asset('asset/jquery/jquery.min.js')}}"></script>
-    <script src=""{{asset('js/popper.js')}}></script>
-    <script src="{{asset('js/bootstrap.min.js')}}"></script>
+        <div class="row">
+            <div class="col-md-6 mb-3">
+                <div class="card">
+                    <div class="card-header bg-primary text-white"><h4>Acceleration</h4></div>
+                    <div class="card-body">
+                        <canvas id="accel" height="280" width="600"></canvas>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6 mb-3">
+                <div class="card">
+                    <div class="card-header bg-primary text-white"><h4>Carbon level</h4></div>
+                    <div class="card-body">
+                        <canvas id="carbon" height="280" width="600"></canvas>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6 mb-3">
+                <div class="card">
+                    <div class="card-header bg-primary text-white"><h4>Inclination</h4></div>
+                    <div class="card-body">
+                        <canvas id="inclination" height="280" width="600"></canvas>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+        <script src=""{{asset('js/popper.js')}}></script>
+        <script src="{{asset('js/bootstrap.min.js')}}"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.6.0/Chart.bundle.js" charset="utf-8"></script>
+        <script>
+            var url = "{{url('chart/data')}}";
+            var dateTime = new Array();
+            var acceleration = new Array();
+            var inclination = new Array();
+            var carbonLevel = new Array();
+            $(document).ready(function(){
+                $.get(url, function(response){
+                    response.forEach(function(data){
+                        dateTime.push(data.created_at);
+                        acceleration.push(data.acceleration);
+                        inclination.push(data.inclination);
+                        carbonLevel.push(data.carbon);
+                    });
+                    var accel = document.getElementById("accel").getContext('2d');
+                    var carbonChart = document.getElementById("carbon").getContext('2d');
+                    var inclinationChart = document.getElementById("inclination").getContext('2d');
+                    var myChart = new Chart(accel, {
+                        type: 'line',
+                        data: {
+                            labels:dateTime,
+                            datasets: [{
+                                label: 'Acceleration',
+                                data: acceleration,
+                                borderWidth: 3,
+                                borderColor: 'rgb(75, 192, 192)',
+                                fill:false,
+                                tension: 0.1
+                            }]
+                        },
+                        options: {
+                            scales: {
+                                yAxes: [{
+                                    ticks: {
+                                        beginAtZero:true
+                                    }
+                                }],
+
+
+                                xAxes: [{
+                                    gridLines: {
+                                        color: '#f2f3f8'
+                                    },
+                                }]
+                            },
+                        }
+                    });
+                    var carbonDiagram = new Chart(carbonChart, {
+                        type: 'line',
+                        data: {
+                            labels:dateTime,
+                            datasets: [{
+                                label: 'Carbon level',
+                                data: carbonLevel,
+                                borderWidth: 3,
+                                borderColor: 'rgb(0, 127, 212)',
+                                fill:false,
+                                tension: 0.1
+                            }]
+                        },
+                        options: {
+                            scales: {
+                                yAxes: [{
+                                    ticks: {
+                                        beginAtZero:true
+                                    }
+                                }],
+
+
+                                xAxes: [{
+                                    gridLines: {
+                                        color: '#f2f3f8'
+                                    },
+                                }]
+                            },
+                        }
+                    });
+                    var inclinationDiagram = new Chart(inclinationChart, {
+                        type: 'line',
+                        data: {
+                            labels:dateTime,
+                            datasets: [{
+                                label: 'Inclination',
+                                data: inclination,
+                                borderWidth: 3,
+                                borderColor: 'rgb(255, 162, 0)',
+                                fill:false,
+                                tension: 0.1
+                            }]
+                        },
+                        options: {
+                            scales: {
+                                yAxes: [{
+                                    ticks: {
+                                        beginAtZero:true
+                                    }
+                                }],
+                                xAxes: [{
+                                    gridLines: {
+                                        color: '#f2f3f8'
+                                    },
+                                }]
+                            },
+                        }
+                    });
+                });
+            });
+        </script>
     </body>
 </html>

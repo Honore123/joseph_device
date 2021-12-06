@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\DeviceController;
+use App\Http\Controllers\DeviceDataController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -16,4 +17,5 @@ use App\Http\Controllers\DeviceController;
 Route::get('/', function () {
     return view('welcome');
 });
+Route::get('chart/data', [DeviceDataController::class,'ajax']);
 Route::get('device/data', DeviceController::class);
