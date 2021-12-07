@@ -18,6 +18,7 @@ class CreateDeviceDataTable extends Migration
             $table->integer('acceleration');
             $table->float('carbon');
             $table->integer('inclination');
+            $table->time('time');
             $table->timestamps();
         });
     }

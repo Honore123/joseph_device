@@ -53,10 +53,10 @@
                 </div>
             </div>
         </div>
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+        <script src="{{asset('asset/jquery/jquery.min.js')}}"></script>
         <script src=""{{asset('js/popper.js')}}></script>
         <script src="{{asset('js/bootstrap.min.js')}}"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.6.0/Chart.bundle.js" charset="utf-8"></script>
+        <script src="{{asset('js/chart.js')}}" charset="utf-8"></script>
         <script>
             var url = "{{url('chart/data')}}";
             var dateTime = new Array();
@@ -66,7 +66,7 @@
             $(document).ready(function(){
                 $.get(url, function(response){
                     response.forEach(function(data){
-                        dateTime.push(data.created_at);
+                        dateTime.push(data.time);
                         acceleration.push(data.acceleration);
                         inclination.push(data.inclination);
                         carbonLevel.push(data.carbon);
