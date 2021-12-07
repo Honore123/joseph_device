@@ -20,6 +20,7 @@ class DeviceController extends Controller
           'acceleration' => $acceleration,
           'carbon' => $carbon,
           'inclination' => $inclination,
+          'time' => now(),
       ]);
 
       echo "data updated";

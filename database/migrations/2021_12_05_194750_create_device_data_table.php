@@ -15,7 +15,7 @@ class CreateDeviceDataTable extends Migration
     {
         Schema::create('device_data', function (Blueprint $table) {
             $table->id();
-            $table->integer('acceleration');
+            $table->float('acceleration');
             $table->float('carbon');
             $table->integer('inclination');
             $table->time('time');

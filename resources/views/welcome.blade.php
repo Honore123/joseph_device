@@ -4,7 +4,7 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
-        <title>Laravel</title>
+        <title>Vehicle Statistics</title>
 
         <!-- Fonts -->
         <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
@@ -24,7 +24,7 @@
     <body class="container-fluid">
         <div class="row">
             <div class="col-md-12 text-center my-5">
-                <h4>Device Statistics</h4>
+                <h4>Vehicle Statistics</h4>
             </div>
         </div>
         <div class="row">
@@ -51,6 +51,33 @@
                         <canvas id="inclination" height="280" width="600"></canvas>
                     </div>
                 </div>
+            </div>
+            <div class="col-md-6 mb-3">
+                @if($data->carbon <= 0.07 && $data->acceleration <= 0)
+                    <div class="alert alert-primary display-6" role="alert">
+                        Car is Parked
+                    </div>
+                @elseif($data->carbon > 0.07 &&  $data->acceleration <= 0)
+                    <div class="alert alert-primary display-6" role="alert">
+                        Car is started ON
+                    </div>
+                @elseif($data->carbon > 0.07 && $data->inclination <= 1 && $data->inclination >= 0 && $data->acceleration >= 0.16 && $data->acceleration <= 0.2)
+                    <div class="alert alert-primary display-6" role="alert">
+                        Car is moving slow straight
+                    </div>
+                @elseif($data->carbon > 0.07 && $data->inclination <= 1 && $data->inclination >=0 && $data->acceleration > 0.2)
+                    <div class="alert alert-primary display-6" role="alert">
+                        Car is moving fast straight
+                    </div>
+                @elseif($data->carbon > 0.07 && $data->inclination > 1 && $data->inclination <= 50 && $data->acceleration >= 0.16)
+                    <div class="alert alert-primary display-6" role="alert">
+                        Car is climbing up
+                    </div>
+                @elseif($data->carbon > 0.07 && $data->inclination < 0 && $data->acceleration >= 0.16)
+                    <div class="alert alert-primary display-6" role="alert">
+                        Car is Descending
+                    </div>
+                @endif
             </div>
         </div>
         <script src="{{asset('asset/jquery/jquery.min.js')}}"></script>

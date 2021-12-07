@@ -14,8 +14,6 @@ use App\Http\Controllers\DeviceDataController;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', [DeviceDataController::class, 'index']);
 Route::get('chart/data', [DeviceDataController::class,'ajax']);
 Route::get('device/data', DeviceController::class);
