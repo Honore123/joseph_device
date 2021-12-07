@@ -19,6 +19,6 @@ class DeviceDataController extends Controller
     {
         $response = DeviceData::query()->orderBy('id','DESC')->take(10)->get();
 
-        return response()->json($response);
+        return response()->json($response->reverse()->values());
     }
 }

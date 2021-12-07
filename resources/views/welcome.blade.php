@@ -53,27 +53,27 @@
                 </div>
             </div>
             <div class="col-md-6 mb-3">
-                @if($data->carbon <= 0.07 && $data->acceleration <= 0)
+                @if($data->carbon <= 500 && $data->acceleration <= 0)
                     <div class="alert alert-primary display-6" role="alert">
                         Car is Parked
                     </div>
-                @elseif($data->carbon > 0.07 &&  $data->acceleration <= 0)
+                @elseif($data->carbon > 500 &&  $data->acceleration <= 0)
                     <div class="alert alert-primary display-6" role="alert">
                         Car is started ON
                     </div>
-                @elseif($data->carbon > 0.07 && $data->inclination <= 1 && $data->inclination >= 0 && $data->acceleration >= 0.16 && $data->acceleration <= 0.2)
+                @elseif($data->carbon > 500 && $data->inclination <= 1 && $data->inclination >= 0 && $data->acceleration >= 0.16 && $data->acceleration <= 0.2)
                     <div class="alert alert-primary display-6" role="alert">
                         Car is moving slow straight
                     </div>
-                @elseif($data->carbon > 0.07 && $data->inclination <= 1 && $data->inclination >=0 && $data->acceleration > 0.2)
+                @elseif($data->carbon > 500 && $data->inclination <= 1 && $data->inclination >=0 && $data->acceleration > 0.2)
                     <div class="alert alert-primary display-6" role="alert">
                         Car is moving fast straight
                     </div>
-                @elseif($data->carbon > 0.07 && $data->inclination > 1 && $data->inclination <= 50 && $data->acceleration >= 0.16)
+                @elseif($data->carbon > 500 && $data->inclination > 1 && $data->inclination <= 50 && $data->acceleration >= 0.16)
                     <div class="alert alert-primary display-6" role="alert">
                         Car is climbing up
                     </div>
-                @elseif($data->carbon > 0.07 && $data->inclination < 0 && $data->acceleration >= 0.16)
+                @elseif($data->carbon > 500 && $data->inclination < 0 && $data->acceleration >= 0.16)
                     <div class="alert alert-primary display-6" role="alert">
                         Car is Descending
                     </div>
@@ -85,12 +85,12 @@
         <script src="{{asset('js/bootstrap.min.js')}}"></script>
         <script src="{{asset('js/chart.js')}}" charset="utf-8"></script>
         <script>
+            $(document).ready(function(){
             var url = "{{url('chart/data')}}";
             var dateTime = new Array();
             var acceleration = new Array();
             var inclination = new Array();
             var carbonLevel = new Array();
-            $(document).ready(function(){
                 $.get(url, function(response){
                     response.forEach(function(data){
                         dateTime.push(data.time);
@@ -115,6 +115,9 @@
                             }]
                         },
                         options: {
+                            animation:{
+                                duration: 0
+                            },
                             scales: {
                                 yAxes: [{
                                     ticks: {
@@ -145,6 +148,9 @@
                             }]
                         },
                         options: {
+                            animation:{
+                                duration: 0
+                            },
                             scales: {
                                 yAxes: [{
                                     ticks: {
@@ -175,6 +181,9 @@
                             }]
                         },
                         options: {
+                            animation:{
+                                duration: 0
+                            },
                             scales: {
                                 yAxes: [{
                                     ticks: {
